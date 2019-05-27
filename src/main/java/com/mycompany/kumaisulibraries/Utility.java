@@ -59,7 +59,7 @@ public final class Utility {
         if ( player != null ) player.sendMessage( msg );
     }
 
-    public static void Prt( Player player, String msg ) {
-        Prt( player, msg, ( player == null ) );
-    }
+    public static void Prt( String msg )                { Prt( ( Player ) null, msg, true ); }
+    public static void Prt( String msg, boolean Flag )  { Prt( ( Player ) null, msg, Flag ); }
+    public static void Prt( Player player, String msg ) { Prt( player, msg, ( player == null ) ); }
 }
