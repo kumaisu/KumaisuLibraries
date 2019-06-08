@@ -52,12 +52,14 @@ public final class Utility {
      * @return 
      */
     public static String CutMiddleString( String data, int length ) {
+        if ( length<=11 ) { return data; }
+
         if ( data.length()>length ) {
-            String makeStrFmt = "%-" + ( length - 6 ) + "s";
-            String prefixStr = data.substring( 0, data.length() - 11 );
+            String prefixStr = data.substring( 0, length - 10 );
             String suffixStr = data.substring( data.length() - 5, data.length() );
             data = StringBuild( prefixStr, " ... ", suffixStr );
         }
+
         return data;
     }
 }
