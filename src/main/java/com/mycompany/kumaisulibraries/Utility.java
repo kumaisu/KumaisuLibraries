@@ -3,9 +3,6 @@
  */
 package com.mycompany.kumaisulibraries;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 /**
  * 各プラグイン共通の関数群.....にするつもりのもの
  *
@@ -13,7 +10,7 @@ import org.bukkit.entity.Player;
  */
 public final class Utility {
 
-    public static enum consoleMode { none, normal, full, max }
+    public static enum consoleMode { none, normal, full, max, stop }
 
     /**
      * 複数の文字列を連結するる
@@ -49,17 +46,18 @@ public final class Utility {
     }
     
     /**
-     * メッセージ表示
-     * @param player    表示するプレイヤー
-     * @param msg       表示内容
-     * @param console   システムコンソールに表示するか？
+     * 長い文字を途中省略して、文字列成形する
+     * @param data
+     * @param length
+     * @return 
      */
-    public static void Prt( Player player, String msg, boolean console ) {
-        if ( console ) Bukkit.getServer().getConsoleSender().sendMessage( msg );
-        if ( player != null ) player.sendMessage( msg );
+    public static String CutMiddleString( String data, int length ) {
+        if ( data.length()>length ) {
+            String makeStrFmt = "%-" + ( length - 6 ) + "s";
+            String prefixStr = data.substring( 0, data.length() - 11 );
+            String suffixStr = data.substring( data.length() - 5, data.length() );
+            data = StringBuild( prefixStr, " ... ", suffixStr );
+        }
+        return data;
     }
-
-    public static void Prt( String msg )                { Prt( ( Player ) null, msg, true ); }
-    public static void Prt( String msg, boolean Flag )  { Prt( ( Player ) null, msg, Flag ); }
-    public static void Prt( Player player, String msg ) { Prt( player, msg, ( player == null ) ); }
 }
