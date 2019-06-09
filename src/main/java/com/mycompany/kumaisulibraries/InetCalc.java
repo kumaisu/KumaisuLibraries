@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
  * @author sugichan
  */
 public final class InetCalc {
-    
+
     /**
      * IPアドレスを整数化する関数
      *
