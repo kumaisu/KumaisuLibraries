@@ -46,20 +46,61 @@ public final class Utility {
     }
     
     /**
-     * 長い文字を途中省略して、文字列成形する
+     * 文字列を左から指定文字数取り出す
+     *
      * @param data
      * @param length
-     * @return 
+     * @return
      */
-    public static String CutMiddleString( String data, int length ) {
+    public static String leftString( String data, int length ) {
+        if ( data.length()>length ) {
+            return data.substring( 0, length );
+        }
+        return data;
+    }
+
+    /**
+     * 文字列を右から指定文字数取り出す
+     *
+     * @param data
+     * @param length
+     * @return
+     */
+    public static String rightString( String data, int length ) {
+        if ( data.length()>length ) {
+            return data.substring( data.length() - length, data.length() );
+        }
+        return data;
+    }
+
+    /**
+     * 長い文字を途中省略して、文字列成形する
+     *
+     * @param data
+     * @param length
+     * @param separator
+     * @return
+     */
+    public static String CutMiddleString( String data, int length, String separator ) {
         if ( length<=11 ) { return data; }
 
         if ( data.length()>length ) {
-            String prefixStr = data.substring( 0, length - 10 );
-            String suffixStr = data.substring( data.length() - 5, data.length() );
-            data = StringBuild( prefixStr, " ... ", suffixStr );
+            return StringBuild(
+                leftString( data, length - ( separator.length() + 5 ) ),
+                separator,
+                rightString( data, 5 ) );
         }
 
         return data;
     }
+
+    /**
+     * 区切り文字のディフォルト設定
+     *
+     * @param data
+     * @param length
+     * @return 
+     */
+    public static String CutMiddleString( String data, int length ) { return CutMiddleString( data, length, " ... " ); }
+
 }

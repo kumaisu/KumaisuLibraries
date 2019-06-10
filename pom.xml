@@ -46,13 +46,14 @@
                     <noJekyll>true</noJekyll>
                     <!-- distributionManagement の url と一致させる -->
                     <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                    <branch>refs/heads/mvn-repo</branch>
                     <includes>
                         <include>**/*</include>
                     </includes>
                     <!-- Github リポジトリ名 -->
                     <repositoryName>KumaisuLibraries</repositoryName>
                     <!-- Github リポジトリユーザー名 -->
-                    <repositoryOwner>kumaisu</repositoryOwner>
+                    <repositoryOwner>Kumaisu</repositoryOwner>
                 </configuration>
                 <executions>
                     <execution>
