@@ -10,8 +10,6 @@ package com.mycompany.kumaisulibraries;
  */
 public final class Utility {
 
-    public static enum consoleMode { none, normal, full, max, stop }
-
     /**
      * 複数の文字列を連結するる
      * 通常の＋による連結よりも若干速くなるので速度重視の場所に利用

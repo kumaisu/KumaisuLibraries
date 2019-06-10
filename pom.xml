@@ -16,6 +16,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+        
     <distributionManagement>
         <repository>
             <id>internal.repos</id>
@@ -67,4 +74,11 @@
 
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
