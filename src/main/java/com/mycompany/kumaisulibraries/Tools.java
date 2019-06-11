@@ -5,16 +5,11 @@
  */
 package com.mycompany.kumaisulibraries;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.FireworkMeta;
 
 /**
  *
@@ -22,20 +17,24 @@ import org.bukkit.inventory.meta.FireworkMeta;
  */
 public final class Tools {
     
-    public static String programCode = "xx";
     public static enum consoleMode { none, normal, full, max, stop }
-    public static consoleMode DebugFlag = consoleMode.none;
+    public static Map< String, consoleMode > consoleFlag = new HashMap<>();
+
+    public static void entryDebugFlag( String programCode, consoleMode key ) {
+        consoleFlag.put( programCode, key );
+    }
 
     /**
      * 一時的にDebugModeを設定しなおす
      *
      * @param key 
+     * @param programCode 
      */
-    public static void setDebug( String key ) {
+    public static void setDebug( String key, String programCode ) {
         try {
-            DebugFlag = consoleMode.valueOf( key );
+            consoleFlag.put( programCode, consoleMode.valueOf( key ) );
         } catch( IllegalArgumentException e ) {
-            DebugFlag = consoleMode.none;
+            consoleFlag.put( programCode, consoleMode.none );
         }
     }
 
@@ -43,10 +42,11 @@ public final class Tools {
      * keyに対して、設定されているDebugMode下での可否判定を返す
      *
      * @param key
+     * @param programCode
      * @return 
      */
-    public static boolean isDebugFlag( consoleMode key ) {
-        return ( DebugFlag.ordinal() >= key.ordinal() );
+    public static boolean isDebugFlag( consoleMode key, String programCode ) {
+        return ( consoleFlag.get( programCode ).ordinal() >= key.ordinal() );
     }
 
     /**
@@ -54,9 +54,10 @@ public final class Tools {
      * @param player    表示するプレイヤー
      * @param msg       表示内容
      * @param key       システムコンソールに表示するか？
+     * @param programCode
      */
-    public static void Prt( Player player, String msg, consoleMode key ) {
-        if ( isDebugFlag( key ) ) {
+    public static void Prt( Player player, String msg, consoleMode key, String programCode ) {
+        if ( isDebugFlag( key, programCode ) ) {
             String printString = Utility.StringBuild( ChatColor.YELLOW.toString(), "(", programCode, ":", key.toString(), ") " );
             if ( player != null ) { printString = Utility.StringBuild( printString, player.getDisplayName(), " " ); }
             printString = Utility.StringBuild( printString, ChatColor.WHITE.toString(), msg );
@@ -65,16 +66,16 @@ public final class Tools {
         if ( player != null ) player.sendMessage( msg.split( "/n" ) );
     }
 
-    public static void Prt( String msg ) {
-        Prt( ( Player ) null, msg, consoleMode.none );
+    public static void Prt( String msg, String programCode ) {
+        Prt( ( Player ) null, msg, consoleMode.none, programCode );
     }
 
-    public static void Prt( String msg, consoleMode key ) {
-        Prt( ( Player ) null, msg, key );
+    public static void Prt( String msg, consoleMode key, String programCode ) {
+        Prt( ( Player ) null, msg, key, programCode );
     }
 
-    public static void Prt( Player player, String msg ) {
-        Prt( player, msg, ( ( player == null ) ? consoleMode.none:consoleMode.stop ) );
+    public static void Prt( Player player, String msg, String programCode ) {
+        Prt( player, msg, ( ( player == null ) ? consoleMode.none:consoleMode.stop ), programCode );
     }
 
     /**
@@ -87,75 +88,6 @@ public final class Tools {
     public static void ExecOtherCommand( Player player, String ExecCommand, String Message ) {
         ExecCommand = ExecCommand.replace( "%message%", Message );
         ExecCommand = ExecCommand.replace( "%player%", player.getDisplayName() );
-        Prt( ChatColor.WHITE + "Command Exec : " + ChatColor.YELLOW + ExecCommand );
         Bukkit.getServer().dispatchCommand( Bukkit.getConsoleSender(), ExecCommand );
-    }
-
-    /**
-     * 特殊な名前のブロックに対する対処
-     * GRANITE：花崗岩
-     * DIORITE：閃緑岩
-     * ANDESITE：安山岩
-     *
-     * @param b
-     * @return
-     */
-    public static String getStoneName( Block b ) {
-        String retStr = b.getType().toString();
-        if ( b.getType().equals( Material.STONE ) ) {
-            switch ( b.getData() ) {
-                case 1:
-                    retStr = "GRANITE";
-                    break;
-                case 3:
-                    retStr = "DIORITE";
-                    break;
-                case 5:
-                    retStr = "ANDESITE";
-                    break;
-            }
-        }
-        return retStr;
-    }
-
-    /**
-     *  指定された場所に花火を打ち上げる関数
-     *
-     * @param loc
-     */
-    public static void launchFireWorks( Location loc ) {
-        /*
-            static private FireworkEffect.Type[] types = { FireworkEffect.Type.BALL,
-                FireworkEffect.Type.BALL_LARGE, FireworkEffect.Type.BURST,
-                FireworkEffect.Type.CREEPER, FireworkEffect.Type.STAR, };
-        */
-        // 花火を作る
-        Firework firework = loc.getWorld().spawn( loc, Firework.class );
-
-        // 花火の設定情報オブジェクトを取り出す
-        FireworkMeta meta = firework.getFireworkMeta();
-        FireworkEffect.Builder effect = FireworkEffect.builder();
-
-        // 形状を星型にする
-        effect.with( FireworkEffect.Type.STAR );
-
-        // 基本の色を単色～5色以内でランダムに決める
-        effect.withColor( Color.AQUA );
-
-        // 余韻の色を単色～3色以内でランダムに決める
-        effect.withFade( Color.YELLOW );
-
-        // 爆発後に点滅するかをランダムに決める
-        effect.flicker( true );
-
-        // 爆発後に尾を引くかをランダムに決める
-        effect.trail( true );
-
-        // 打ち上げ高さを1以上4以内でランダムに決める
-        meta.setPower( 1 );
-
-        // 花火の設定情報を花火に設定
-        meta.addEffect( effect.build() );
-        firework.setFireworkMeta( meta );
     }
 }
