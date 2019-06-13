@@ -58,7 +58,8 @@ public final class Tools {
      */
     public static void Prt( Player player, String msg, consoleMode key, String programCode ) {
         if ( isDebugFlag( key, programCode ) ) {
-            String printString = Utility.StringBuild( ChatColor.YELLOW.toString(), "(", programCode, ":", key.toString(), ") " );
+            String printString = Utility.StringBuild( ChatColor.YELLOW.toString(), "(", programCode, ")" );
+            if ( key != consoleMode.none ) { printString = Utility.StringBuild( printString, ":", key.toString(), " " ); }
             if ( player != null ) { printString = Utility.StringBuild( printString, player.getDisplayName(), " " ); }
             printString = Utility.StringBuild( printString, ChatColor.WHITE.toString(), msg );
             Bukkit.getServer().getConsoleSender().sendMessage( printString );
