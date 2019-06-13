@@ -88,4 +88,60 @@ public final class Items {
 
         return item;
     }
+
+    public static ItemStack PresentArmor() {
+        ItemStack is = new ItemStack( Material.CHAINMAIL_BOOTS, 1 );    // ChainMail Boots
+
+        List<String> lores = new ArrayList();
+
+        lores.add( "§7落下耐性 Ⅴ" );
+        lores.add( "§7火炎耐性 Ⅴ" );
+        lores.add( "§7耐久力 Ⅲ" );
+        lores.add( "§d整地イベント参加賞" );
+
+        ItemMeta im = is.getItemMeta();             //ItemStackから、ItemMetaを取得
+        im.setDisplayName( "§bイベントブーツ" );    //Item名を設定
+        im.setLore( lores );                        //loreを設定します。
+        im.addItemFlags( ItemFlag.HIDE_ENCHANTS );  //本来のエンチャント情報を隠す
+        is.setItemMeta( im );                       //元のItemStackに、変更したItemMetaを設定
+
+        is.addUnsafeEnchantment( Enchantment.PROTECTION_FALL, 5 );      // Featherfall
+        is.addUnsafeEnchantment( Enchantment.PROTECTION_FIRE, 5 );      // ProtectionFire
+        is.addUnsafeEnchantment( Enchantment.DURABILITY, 3 );           // Unbreaking
+        is.addUnsafeEnchantment( Enchantment.ARROW_INFINITE, 0 );       // Infinity
+
+        return is;
+    }
+
+    public static ItemStack EventTool( String ToolName, Material tool, boolean full ) {
+        ItemStack is = new ItemStack( tool, 1 );
+
+        List<String> lores = new ArrayList();
+
+        if ( full ) {
+            is.addUnsafeEnchantment( Enchantment.DIG_SPEED, 10 );           // Efficiency
+            is.addUnsafeEnchantment( Enchantment.LURE, 10 );                // Lure
+            is.addUnsafeEnchantment( Enchantment.DURABILITY, 10 );          // Unbreaking
+            is.addUnsafeEnchantment( Enchantment.ARROW_INFINITE, 10 );      // Infinity
+            lores.add( "§7効率強化 Ⅹ" );
+            lores.add( "§7耐久力 Ⅹ" );
+        } else {
+            is.addUnsafeEnchantment( Enchantment.DIG_SPEED, 6 );            // Efficiency
+            is.addUnsafeEnchantment( Enchantment.LURE, 6 );                 // Lure
+            is.addUnsafeEnchantment( Enchantment.DURABILITY, 0 );           // Unbreaking
+            is.addUnsafeEnchantment( Enchantment.ARROW_INFINITE, 0 );       // Infinity
+            lores.add( "§7効率強化 Ⅵ" );
+        }
+
+        is.addUnsafeEnchantment( Enchantment.SILK_TOUCH, 1);                // SILK_TOUCH
+        lores.add( "§d整地イベント参加賞" );
+
+        ItemMeta im = is.getItemMeta();             //  ItemStackから、ItemMetaを取得
+        im.setDisplayName( ToolName );              //  Item名を設定
+        im.setLore( lores );                        //  loreを設定します。
+        im.addItemFlags( ItemFlag.HIDE_ENCHANTS );  //  本来のエンチャント情報を隠す
+        is.setItemMeta( im );                       //  元のItemStackに、変更したItemMetaを設定
+
+        return is;
+    }
 }

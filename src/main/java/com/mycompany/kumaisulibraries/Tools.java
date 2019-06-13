@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  * @author sugichan
  */
 public final class Tools {
-    
+
     public static enum consoleMode { none, normal, full, max, stop }
     public static Map< String, consoleMode > consoleFlag = new HashMap<>();
 
