@@ -21,10 +21,11 @@ public final class Items {
     /**
      * サーバー独自アイテム「ExpCube」生成
      *
-     * @param item
      * @return
      */
-    public static ItemStack ExpCube( ItemStack item ) {
+    public static ItemStack ExpCube() {
+        ItemStack item = new ItemStack( Material.QUARTZ_BLOCK, 1 );
+
         List<String> lores = new ArrayList();
 
         lores.add( "§eスニーク§fしながら" );
@@ -45,10 +46,11 @@ public final class Items {
     /**
      * サーバー独自アイテム「くまそうる」生成
      *
-     * @param item
      * @return
      */
-    public static ItemStack KumaSoul( ItemStack item ) {
+    public static ItemStack KumaSoul() {
+        ItemStack item = new ItemStack( Material.IRON_NUGGET, 1 );
+
         List<String> lores = new ArrayList();
 
         lores.add( "§dクマイス§eの§4魂§eが集まったもの" );
@@ -69,10 +71,11 @@ public final class Items {
     /**
      * サーバー独自アイテム「くまおーぶ」生成
      *
-     * @param item
      * @return
      */
-    public static ItemStack KumaOrb( ItemStack item ) {
+    public static ItemStack KumaOrb() {
+        ItemStack item = new ItemStack( Material.EMERALD, 1 );
+
         List<String> lores = new ArrayList();
 
         lores.add( "§dクマイス§eから§4投票§eへの" );
