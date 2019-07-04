@@ -3,6 +3,9 @@
  */
 package com.mycompany.kumaisulibraries;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 /**
  * 各プラグイン共通の関数群.....にするつもりのもの
  *
@@ -101,4 +104,21 @@ public final class Utility {
      */
     public static String CutMiddleString( String data, int length ) { return CutMiddleString( data, length, " ... " ); }
 
+    /**
+     * 日数の差分を計算するメソッド（あとで、CommonLibraries行き)
+     *
+     * @param dateFrom
+     * @param dateTo
+     * @return 
+     */
+    public static int dateDiff( Date dateFrom, Date dateTo ) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        // 差分の日数を計算する
+        long dateTimeTo = dateTo.getTime();
+        long dateTimeFrom = dateFrom.getTime();
+        long dayDiff = ( dateTimeTo - dateTimeFrom  ) / ( 1000 * 60 * 60 * 24 );
+
+        return (int) dayDiff;
+    }
 }
