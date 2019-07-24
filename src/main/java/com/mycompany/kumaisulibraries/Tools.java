@@ -88,7 +88,7 @@ public final class Tools {
      */
     public static void ExecOtherCommand( Player player, String ExecCommand, String Message ) {
         ExecCommand = ExecCommand.replace( "%message%", Message );
-        ExecCommand = ExecCommand.replace( "%player%", player.getDisplayName() );
+        ExecCommand = ExecCommand.replace( "%player%", player.getName() );
         Bukkit.getServer().dispatchCommand( Bukkit.getConsoleSender(), ExecCommand );
     }
 }
