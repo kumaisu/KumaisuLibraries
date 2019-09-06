@@ -117,9 +117,10 @@ public final class Items {
         return is;
     }
 
-    public static ItemStack EventTool( String ToolName, Material tool, boolean full ) {
+    public static ItemStack EventTool( String ToolName, Material tool, int DigSpeed, boolean full ) {
         ItemStack is = new ItemStack( tool, 1 );
 
+        String[] stringArray = { "", "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ", "Ⅹ", "ⅩⅠ" };
         List<String> lores = new ArrayList();
 
         if ( full ) {
@@ -130,11 +131,11 @@ public final class Items {
             lores.add( "§7効率強化 Ⅹ" );
             lores.add( "§7耐久力 Ⅹ" );
         } else {
-            is.addUnsafeEnchantment( Enchantment.DIG_SPEED, 6 );            // Efficiency
-            is.addUnsafeEnchantment( Enchantment.LURE, 6 );                 // Lure
+            is.addUnsafeEnchantment( Enchantment.DIG_SPEED, DigSpeed );     // Efficiency
+            is.addUnsafeEnchantment( Enchantment.LURE, DigSpeed );          // Lure
             is.addUnsafeEnchantment( Enchantment.DURABILITY, 0 );           // Unbreaking
             is.addUnsafeEnchantment( Enchantment.ARROW_INFINITE, 0 );       // Infinity
-            lores.add( "§7効率強化 Ⅵ" );
+            lores.add( "§7効率強化 " + stringArray[DigSpeed] );
         }
 
         is.addUnsafeEnchantment( Enchantment.SILK_TOUCH, 1);                // SILK_TOUCH
