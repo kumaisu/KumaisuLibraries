@@ -5,6 +5,9 @@
  */
 package com.mycompany.kumaisulibraries;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
@@ -91,4 +94,25 @@ public final class Tools {
         ExecCommand = ExecCommand.replace( "%player%", player.getName() );
         Bukkit.getServer().dispatchCommand( Bukkit.getConsoleSender(), ExecCommand );
     }
+
+    private static Method getMethod( String name, Class<?> clazz ) {
+        for ( Method m : clazz.getDeclaredMethods() ) {
+            if ( m.getName().equals( name ) ) return m;
+        }
+        return null;
+    }
+
+    public static String getLanguage( Player player ) {
+        try {
+            Object ep = getMethod( "getHandle", player.getClass() ).invoke( player, ( Object[] ) null );
+            Field f = ep.getClass().getDeclaredField( "locale" );
+            f.setAccessible( true );
+            String language = (String) f.get( ep );
+            return language;
+        }
+        catch ( IllegalAccessException | IllegalArgumentException | NoSuchFieldException | SecurityException | InvocationTargetException t ) {
+            return null;
+        }
+    }
+ 
 }

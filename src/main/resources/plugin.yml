@@ -1,4 +1,5 @@
 main: com.mycompany.kumaisulibraries.KumaisuLibraries
 name: KumaisuLibraries
-version: 0.1
+version: ${project.version}
+description: ${project.description}
 author: Kumaisu

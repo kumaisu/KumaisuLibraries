@@ -4,6 +4,7 @@
     <groupId>com.mycompany</groupId>
     <artifactId>KumaisuLibraries</artifactId>
     <version>0.1</version>
+    <description>Kumaisu Private Libraries</description>
     <packaging>jar</packaging>
 
     <name>KumaisuLibraries</name>
