@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
     <artifactId>KumaisuLibraries</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <description>Kumaisu Private Libraries</description>
     <packaging>jar</packaging>
 

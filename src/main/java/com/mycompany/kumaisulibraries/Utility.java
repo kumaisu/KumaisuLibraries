@@ -83,9 +83,9 @@ public final class Utility {
      * @return
      */
     public static String CutMiddleString( String data, int length, String separator ) {
-        if ( length<=11 ) { return data; }
+        if ( length <= ( separator.length() + 6 ) ) { return data; }
 
-        if ( data.length()>length ) {
+        if ( data.length() > length ) {
             return StringBuild(
                 leftString( data, length - ( separator.length() + 5 ) ),
                 separator,

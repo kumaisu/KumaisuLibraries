@@ -20,7 +20,10 @@ import org.bukkit.entity.Player;
  */
 public final class Tools {
 
-    public static enum consoleMode { none, normal, full, max, stop }
+    //  stop : 非表示
+    //  print : 強制表示
+    //  normal , full , max : 表示レベル
+    public static enum consoleMode { stop, print, normal, full, max }
     public static Map< String, consoleMode > consoleFlag = new HashMap<>();
 
     public static void entryDebugFlag( String programCode, consoleMode key ) {
@@ -37,7 +40,7 @@ public final class Tools {
         try {
             consoleFlag.put( programCode, consoleMode.valueOf( key ) );
         } catch( IllegalArgumentException e ) {
-            consoleFlag.put( programCode, consoleMode.none );
+            consoleFlag.put( programCode, consoleMode.print );
         }
     }
 
@@ -60,10 +63,15 @@ public final class Tools {
      * @param programCode
      */
     public static void Prt( Player player, String msg, consoleMode key, String programCode ) {
-        if ( isDebugFlag( key, programCode ) ) {
-            String printString = Utility.StringBuild( ChatColor.YELLOW.toString(), "(", programCode, ")" );
-            if ( key != consoleMode.none ) { printString = Utility.StringBuild( printString, " ", key.toString() ); }
-            if ( player != null ) { printString = Utility.StringBuild( printString, " ", player.getDisplayName() ); }
+        if ( ( key != consoleMode.stop ) && isDebugFlag( key, programCode ) ) {
+            String printString = Utility.StringBuild(
+                ChatColor.YELLOW.toString(), "(", programCode, ":",
+                key.toString().substring( 0,1 ).toUpperCase(), ")" );
+
+            if ( player != null ) {
+                printString = Utility.StringBuild( printString, " ", player.getDisplayName() );
+            }
+
             printString = Utility.StringBuild( printString, " ", ChatColor.WHITE.toString(), msg );
             Bukkit.getServer().getConsoleSender().sendMessage( printString );
         }
@@ -71,7 +79,7 @@ public final class Tools {
     }
 
     public static void Prt( String msg, String programCode ) {
-        Prt( ( Player ) null, msg, consoleMode.none, programCode );
+        Prt( ( Player ) null, msg, consoleMode.print, programCode );
     }
 
     public static void Prt( String msg, consoleMode key, String programCode ) {
@@ -79,7 +87,7 @@ public final class Tools {
     }
 
     public static void Prt( Player player, String msg, String programCode ) {
-        Prt( player, msg, ( ( player == null ) ? consoleMode.none:consoleMode.stop ), programCode );
+        Prt( player, msg, ( ( player == null ) ? consoleMode.print : consoleMode.stop ), programCode );
     }
 
     /**
