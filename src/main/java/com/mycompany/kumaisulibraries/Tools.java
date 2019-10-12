@@ -23,7 +23,7 @@ public final class Tools {
     //  stop : 非表示
     //  print : 強制表示
     //  normal , full , max : 表示レベル
-    public static enum consoleMode { stop, print, normal, full, max }
+    public static enum consoleMode { print, stop, normal, full, max }
     public static Map< String, consoleMode > consoleFlag = new HashMap<>();
 
     public static void entryDebugFlag( String programCode, consoleMode key ) {
