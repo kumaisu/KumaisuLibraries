@@ -64,15 +64,18 @@ public final class Tools {
      */
     public static void Prt( Player player, String msg, consoleMode key, String programCode ) {
         if ( ( key != consoleMode.stop ) && isDebugFlag( key, programCode ) ) {
-            String printString = Utility.StringBuild(
-                ChatColor.YELLOW.toString(), "(", programCode, ":",
-                key.toString().substring( 0,1 ).toUpperCase(), ")" );
+
+            String printString = Utility.StringBuild( ChatColor.YELLOW.toString(), "(", programCode );
+            if ( key != consoleMode.print ) {
+                printString = Utility.StringBuild( printString, ":", key.toString().substring( 0,1 ).toUpperCase() );
+            }
+            printString = Utility.StringBuild( printString, ") " );
 
             if ( player != null ) {
-                printString = Utility.StringBuild( printString, " ", player.getDisplayName() );
+                printString = Utility.StringBuild( printString, player.getDisplayName(), " " );
             }
 
-            printString = Utility.StringBuild( printString, " ", ChatColor.WHITE.toString(), msg );
+            printString = Utility.StringBuild( printString, ChatColor.WHITE.toString(), msg );
             Bukkit.getServer().getConsoleSender().sendMessage( printString );
         }
         if ( player != null ) player.sendMessage( msg.split( "/n" ) );
