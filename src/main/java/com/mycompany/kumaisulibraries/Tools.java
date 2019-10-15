@@ -35,12 +35,14 @@ public final class Tools {
      *
      * @param key 
      * @param programCode 
+     * @return  
      */
-    public static void setDebug( String key, String programCode ) {
+    public static boolean setDebug( String key, String programCode ) {
         try {
             consoleFlag.put( programCode, consoleMode.valueOf( key ) );
+            return true;
         } catch( IllegalArgumentException e ) {
-            consoleFlag.put( programCode, consoleMode.print );
+            return false;
         }
     }
 
