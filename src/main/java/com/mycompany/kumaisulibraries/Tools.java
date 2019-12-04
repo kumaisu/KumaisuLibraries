@@ -5,14 +5,16 @@
  */
 package com.mycompany.kumaisulibraries;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
+import java.util.UUID;
+import java.util.Map;
+import java.util.HashMap;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  *
@@ -127,5 +129,26 @@ public final class Tools {
             return null;
         }
     }
- 
+
+    /**
+     * UUIDを取得する
+     *
+     * @param name
+     * @return 
+     */
+    public static UUID getUUID( String name ) {
+        UUID uuid;
+        Player player = Bukkit.getServer().getPlayer( name );
+        if ( player == null ) {
+            OfflinePlayer offPlayer = Bukkit.getServer().getOfflinePlayer( name );
+            if ( offPlayer == null ) {
+                uuid = null;
+            } else {
+                uuid = offPlayer.getUniqueId();
+            }
+        } else {
+            uuid = player.getUniqueId();
+        }
+        return uuid;
+    }
 }
