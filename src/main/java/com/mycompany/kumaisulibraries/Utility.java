@@ -4,7 +4,6 @@
 package com.mycompany.kumaisulibraries;
 
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /**
  * 各プラグイン共通の関数群.....にするつもりのもの
